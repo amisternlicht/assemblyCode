@@ -1,0 +1,19 @@
+#CHECKS EMPTY LIST
+   
+  cmpq $NULL, head
+  jne bad
+correct:
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+bad:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+  
+  
+.section .data
+src: .quad 1
+dst: .quad 2
+head: .quad NULL
+.set NULL, 0

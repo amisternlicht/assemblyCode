@@ -1,0 +1,44 @@
+#CHECKS DST NOT IN LIST
+  
+  cmpq $ANode, head
+  jne bad
+  cmpq $5, ANode
+  jne bad
+  cmpq $BNode, ANode+8
+  jne bad
+  cmpq $8, BNode
+  jne bad
+  cmpq $CNode, BNode+8
+  jne bad
+  cmpq $4, CNode
+  jne bad
+  cmpq $DNode, CNode+8
+  jne bad
+  cmpq $10, DNode
+  jne bad
+  cmpq $NULL, DNode+8
+  jne bad
+
+correct:
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+bad:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+  
+  
+.section .data
+src: .quad 4
+dst: .quad 20
+head: .quad ANode
+ANode:  .quad 5
+    .quad BNode
+BNode:  .quad 8
+    .quad CNode
+CNode:  .quad 4
+    .quad DNode
+DNode:  .quad 10
+    .quad NULL
+.set NULL, 0

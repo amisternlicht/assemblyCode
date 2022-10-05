@@ -1,0 +1,42 @@
+#CHECK one node
+
+  cmpq $A, (root)
+  jne bad_exit
+
+  movq $A, %rbx
+  cmpq $20, (%rbx)
+  jne bad_exit
+  cmpq $new_node, 8(%rbx)
+  jne bad_exit
+  cmpq $0, 16(%rbx)
+  jne bad_exit
+
+  movq $new_node, %rbx
+  cmpq $0, (%rbx)
+  jne bad_exit
+  cmpq $0, 8(%rbx)
+  jne bad_exit
+  cmpq $0, 16(%rbx)
+  jne bad_exit
+
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+
+bad_exit:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+
+.section .data
+root:
+        .quad   A
+A:
+        .quad   20
+        .quad   0
+        .quad   0
+
+new_node:
+        .quad   0
+        .quad   0
+        .quad   0

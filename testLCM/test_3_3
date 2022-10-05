@@ -1,0 +1,17 @@
+
+  cmpl $0xfffffffffffff, (c)
+  jne bad_exit
+
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+
+bad_exit:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+
+.section .data
+a: .quad 0xffffffffffffffff
+b: .quad 0xffffffffffffffff
+c: .zero 8
